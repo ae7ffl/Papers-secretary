@@ -1,0 +1,41 @@
+name: Daily Paper Digest (lista curada)
+
+on:
+  schedule:
+    # Varios intentos a lo largo de la mañana, en minutos "raros" (no en
+    # punto) para evitar la congestión de cron jobs que todo el mundo
+    # programa justo a las horas en punto. Si el primero falla o se
+    # retrasa, el script detecta que ya se envió (o no) y actúa en
+    # consecuencia — nunca duplica el envío del mismo día.
+    - cron: "7 6 * * *"   # ~07-08h hora española
+    - cron: "12 8 * * *"  # ~09-10h hora española (reintento)
+    - cron: "18 10 * * *" # ~11-12h hora española (último reintento)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  send-paper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Ejecutar digest
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+        run: python main.py
+
+      - name: Guardar estado actualizado
+        run: |
+          git config user.name "paper-digest-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add state/state.json
+          git diff --quiet --cached || git commit -m "chore: actualizar estado del digest"
+          git push
