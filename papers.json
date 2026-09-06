@@ -1,0 +1,15 @@
+[
+  {
+    "title": "Título exacto del paper",
+    "authors": "Apellido1 et al.",
+    "journal": "Nombre de la revista",
+    "year": "2026",
+    "url": "https://doi.org/10.xxxx/xxxxx",
+    "category": "Cardiología computacional",
+    "resumen": "Escribe aquí tu resumen del paper.",
+    "implicaciones": "Escribe aquí por qué importa / a quién le sirve.",
+    "preguntas_abiertas": "Escribe aquí preguntas para reflexionar.",
+    "campo_estudio": "Subcampo concreto al que pertenece.",
+    "notes": "Opcional: por qué te interesó este paper en concreto."
+  }
+]
