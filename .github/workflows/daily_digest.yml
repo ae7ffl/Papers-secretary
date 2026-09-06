@@ -2,7 +2,7 @@ name: Daily Paper Digest (lista curada)
 
 on:
   schedule:
-    # Varios intentos a lo largo de la mañana, en minutos "raros" (no en
+    # Varios intentos  a lo largo de la mañana, en minutos "raros" (no en
     # punto) para evitar la congestión de cron jobs que todo el mundo
     # programa justo a las horas en punto. Si el primero falla o se
     # retrasa, el script detecta que ya se envió (o no) y actúa en
